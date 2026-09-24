@@ -12,7 +12,7 @@ phases:
   pre_build:
     commands:
       - echo "Ejecutando pruebas unitarias estándar para asegurar base limpia..."
-      - pytest
+      - python -m pytest
 
   build:
     commands:
