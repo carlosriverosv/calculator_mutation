@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "Instalando dependencias de la aplicación y herramientas de prueba..."
+      - python -m pip install --upgrade pip
+      - pip install -r requirements.txt
+
+  pre_build:
+    commands:
+      - echo "Ejecutando pruebas unitarias estándar para asegurar base limpia..."
+      - pytest
+
+  build:
+    commands:
+      - echo "Iniciando pruebas de mutación con mutmut..."
+      # Se ejecuta mutmut. Si algún mutante sobrevive, el código de salida reflejará el resultado.
+      - mutmut run
+
+  post_build:
+    commands:
+      - echo "Generando informe de resultados de mutmut..."
+      - mutmut results
+      # (Opcional) Genera reporte en HTML si deseas inspeccionar los mutantes detalladamente
+      - mutmut html
+
+artifacts:
+  files:
+    # Guarda los informes HTML de mutmut como artefactos de la compilación
+    - 'html/**/*'
