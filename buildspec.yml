@@ -26,8 +26,10 @@ phases:
       - mutmut results
       # (Opcional) Genera reporte en JSON si deseas inspeccionar los mutantes detalladamente
       - mutmut export-cicd-stats
+      - coverage html
 
 artifacts:
   files:
     # Guarda los informes de mutmut como artefactos de la compilación
     - 'mutants/*.json'
+    - 'htmlcov/*'
